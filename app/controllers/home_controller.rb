@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-	before_action :authenticate_with_http_digest#authenticate_user!
+	before_action :authenticate_user!, raise: false
   def index
   	
   end
