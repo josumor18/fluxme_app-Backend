@@ -8,10 +8,6 @@ module Api
 				render json: { status: 'SUCCESS', message: 'Loaded users', data:users }, status: :ok
 			end
 
-			def del
-				User.delete(1)
-			end
-
 			def login
 				#email = params[:email]
 				user = User.where(email: params[:email]).first
@@ -45,7 +41,6 @@ module Api
 				#pass = params[:encrypted_password]#(params[:encrypted_password])
 				token = params[:authentication_token]
 				if user
-					if (user.authentication_token==token)
 						user.authentication_token = nil
 						user.save
 						render json: { status: 'SUCCESS', message: 'SESION INICIADA', data:user }, status: :ok
