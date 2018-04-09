@@ -44,9 +44,6 @@ module Api
 						user.authentication_token = nil
 						user.save
 						render json: { status: 'SUCCESS', message: 'SESION INICIADA', data:user }, status: :ok
-					else
-						render json: { status: 'INVALID', message: 'Error al iniciar sesion'}, status: :unauthorized
-					end
 				else
 					user = User.new(name: params[:name], email: params[:email], password: params[:authentication_token], password_confirmation: params[:authentication_token])
 					if user.save
