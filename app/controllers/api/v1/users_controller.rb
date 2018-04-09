@@ -8,6 +8,10 @@ module Api
 				render json: { status: 'SUCCESS', message: 'Loaded users', data:users }, status: :ok
 			end
 
+			def del
+				User.delete(1)
+			end
+
 			def login
 				#email = params[:email]
 				user = User.where(email: params[:email]).first
@@ -25,7 +29,7 @@ module Api
 			def login_token
 				user = User.where(email: params[:email]).first
 				token = params[:authentication_token]
-				
+
 				if (user.authentication_token==token)
 					user.authentication_token = nil
 					user.save

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       #resources :users
+      post 'users/del', to: 'users#del'
       post 'users/login', to: 'users#login'
       post 'users/login_token', to: 'users#login_token'
       post 'users/login_facebook', to: 'users#login_facebook'
