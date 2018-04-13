@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @emisora.nombre %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @emisora.link %>
+</p>
+
+<p>
+  <strong>Id admin:</strong>
+  <%= @emisora.id_admin %>
+</p>
+
+<%= link_to 'Edit', edit_emisora_path(@emisora) %> |
+<%= link_to 'Back', emisoras_path %>
