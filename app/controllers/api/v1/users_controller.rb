@@ -60,7 +60,7 @@ module Api
 			def register
 				user = User.new(user_params)
 				if user.save
-					render json: { status: 'SUCCESS', message: 'USUARIO REGISTRADO', data:user }, status: :ok
+					render json: { status: 'SUCCESS', message: 'USUARIO REGISTRADO', data:user }, status: :created
 				elsif user = User.where(email: params[:email]).first
 					render json: { status: 'ERROR', message: 'USUARIO EXISTENTE' }, status: :unauthorized
 				else
