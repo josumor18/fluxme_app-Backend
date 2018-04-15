@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       post 'users/login_token', to: 'users#login_token'
       post 'users/login_facebook', to: 'users#login_facebook'
       post 'users/register', to: 'users#register'
+      get 'emisoras/index', to: 'emisoras#index'
+      post 'ubicaciones/add', to: 'ubicaciones#add'
+      get 'ubicaciones/get', to: 'ubicaciones#get'
+      delete 'ubicaciones/del_ubicacion', to: 'ubicaciones#del_ubicacion'
     end
   end
   

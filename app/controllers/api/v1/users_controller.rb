@@ -3,6 +3,7 @@ module Api
 		class UsersController < ApplicationController
 			#acts_as_token_authentication_handler_for User
 			protect_from_forgery with: :null_session
+
 			def index
 				users = User.order('created_at DESC');
 				render json: { status: 'SUCCESS', message: 'Loaded users', data:users }, status: :ok
@@ -26,7 +27,7 @@ module Api
 				user = User.where(email: params[:email]).first
 				token = params[:authentication_token]
 
-				if (user.authentication_token==token)
+				if (user&.authentication_token==token)
 					user.authentication_token = nil
 					user.save
 					render json: { status: 'SUCCESS', message: 'SESION INICIADA', data:user }, status: :ok
