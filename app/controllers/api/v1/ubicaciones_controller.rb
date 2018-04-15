@@ -46,6 +46,23 @@ module Api
 					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
 				end
 			end
+
+			#Eliminar ubicacion de un usuario
+			def del_ubicacion
+				user = User.where(id: params[:id_user]).first
+				token = params[:authentication_token]
+				if(user)
+					if (user.authentication_token==token)
+						Ubicacion.where(id_user: params[:id_user]).destroy_all
+
+						render json: { status: 'DELETED', message: 'Ubicacion eliminada'}, status: :ok
+					else
+						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					end
+				else
+					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				end
+			end
 		end
 	end
 end

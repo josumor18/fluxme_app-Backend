@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get 'emisoras/index', to: 'emisoras#index'
       post 'ubicaciones/add', to: 'ubicaciones#add'
       get 'ubicaciones/get', to: 'ubicaciones#get'
+      delete 'ubicaciones/del_ubicacion', to: 'ubicaciones#del_ubicacion'
     end
   end
   
