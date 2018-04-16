@@ -1,0 +1,2 @@
+module LocalizacionStatsHelper
+end

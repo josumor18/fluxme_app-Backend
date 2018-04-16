@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416171208) do
+ActiveRecord::Schema.define(version: 20180416215315) do
 
   create_table "emisoras", force: :cascade do |t|
     t.string   "nombre"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(version: 20180416171208) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "descripcion"
+  end
+
+  create_table "localizacion_stats", force: :cascade do |t|
+    t.integer  "id_user"
+    t.integer  "id_emisora"
+    t.string   "ciudad"
+    t.string   "pais"
+    t.float    "longitud"
+    t.float    "latitud"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ubicacions", force: :cascade do |t|

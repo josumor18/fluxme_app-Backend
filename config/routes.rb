@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :localizacion_stats
   resources :user_emisoras
   resources :emisoras
   devise_for :users

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_user: 1
+  id_emisora: 1
+  ciudad: MyString
+  pais: MyString
+  longitud: 1.5
+  latitud: 1.5
+
+two:
+  id_user: 1
+  id_emisora: 1
+  ciudad: MyString
+  pais: MyString
+  longitud: 1.5
+  latitud: 1.5
