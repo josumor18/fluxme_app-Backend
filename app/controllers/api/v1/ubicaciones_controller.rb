@@ -14,6 +14,7 @@ module Api
 						if (ubicacion.save)
 							loc = LocalizacionStat.new(id_user: params[:id_user], id_emisora: params[:id_emisora], ciudad: params[:ciudad], pais: params[:pais], longitud: params[:longitud], latitud: params[:latitud])
 							loc.save
+							
 							user.authentication_token = nil
 							user.save
 							render json: { status: 'SUCCESS', message: 'Ubicacion agregada', authentication_token:user.authentication_token }, status: :ok

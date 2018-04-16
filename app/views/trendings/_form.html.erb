@@ -1,0 +1,37 @@
+<%= form_for(@trending) do |f| %>
+  <% if @trending.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@trending.errors.count, "error") %> prohibited this trending from being saved:</h2>
+
+      <ul>
+      <% @trending.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :id_emisora %><br>
+    <%= f.number_field :id_emisora %>
+  </div>
+  <div class="field">
+    <%= f.label :posicion %><br>
+    <%= f.number_field :posicion %>
+  </div>
+  <div class="field">
+    <%= f.label :cancion %><br>
+    <%= f.text_field :cancion %>
+  </div>
+  <div class="field">
+    <%= f.label :artista %><br>
+    <%= f.text_field :artista %>
+  </div>
+  <div class="field">
+    <%= f.label :imagen %><br>
+    <%= f.text_field :imagen %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

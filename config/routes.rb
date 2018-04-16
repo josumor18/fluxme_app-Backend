@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :trendings
   resources :localizacion_stats
   resources :user_emisoras
   resources :emisoras
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
       put 'users/change_pass', to: 'users#change_pass'
       put 'users/change_user', to: 'users#change_user'
       post 'user_emisoras/setSuscription', to: 'user_emisoras#setSuscription'
+      get 'trendings/get', to: 'trendings#get'
+      post 'trendings/add', to: 'trendings#add'
     end
   end
   
