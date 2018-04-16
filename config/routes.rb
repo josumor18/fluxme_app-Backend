@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get 'ubicaciones/get', to: 'ubicaciones#get'
       delete 'ubicaciones/del_ubicacion', to: 'ubicaciones#del_ubicacion'
       put 'users/change_pass', to: 'users#change_pass'
+      put 'users/change_user', to: 'users#change_user'
     end
   end
   
