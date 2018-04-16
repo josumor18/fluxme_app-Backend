@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Iduser:</strong>
+  <%= @user_emisora.idUser %>
+</p>
+
+<p>
+  <strong>Idemisora:</strong>
+  <%= @user_emisora.idEmisora %>
+</p>
+
+<%= link_to 'Edit', edit_user_emisora_path(@user_emisora) %> |
+<%= link_to 'Back', user_emisoras_path %>

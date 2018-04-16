@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_emisoras
   resources :emisoras
   devise_for :users
   get 'home/index'
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
       delete 'ubicaciones/del_ubicacion', to: 'ubicaciones#del_ubicacion'
       put 'users/change_pass', to: 'users#change_pass'
       put 'users/change_user', to: 'users#change_user'
+      post 'user_emisoras/setSuscription', to: 'user_emisoras#setSuscription'
     end
   end
   
