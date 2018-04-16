@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415061030) do
+ActiveRecord::Schema.define(version: 20180416084136) do
 
   create_table "emisoras", force: :cascade do |t|
     t.string   "nombre"
     t.string   "link"
     t.integer  "id_admin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "descripcion"
   end
 
   create_table "ubicacions", force: :cascade do |t|
