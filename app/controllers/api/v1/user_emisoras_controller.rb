@@ -16,7 +16,7 @@ module Api
 						useremisora = UserEmisora.new(useremisora_params) 
 						
 						if useremisora.save
-							render json: { status: 'SUCCESS', message: 'USUARIO SUSCRITO', data:user }, status: :created
+							render json: { status: 'SUCCESS', message: 'USUARIO SUSCRITO', authentication_token:user.authentication_token }, status: :created
 						
 						else	
 							render json: { status: 'ERROR', message: 'USUARIO YA SUSCRITO' }, status: :unauthorized
@@ -33,6 +33,29 @@ module Api
 				
 
 			end
+
+			def isSuscripted
+
+				user = User.where(id: params[:idUser]).first
+				useremisora = UserEmisora.find_by(idUser: params[:idUser],idEmisora: params[:idUser])
+				token = params[:authentication_token]
+
+				if (user&.authentication_token==token)
+						user.authentication_token = nil
+						user.save
+				
+					if(useremisora)
+						render json: { status: 'SUCCESS', message: 'USUARIO SUSCRITO', authentication_token:user.authentication_token}, status: :ok
+					else
+						render json: { status: 'ERROR', message: 'USUARIO NO SUSCRITO' }, status: :bad
+					end
+				else
+					render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					
+				end
+			end
+
+
 
 			private
 			def useremisora_params

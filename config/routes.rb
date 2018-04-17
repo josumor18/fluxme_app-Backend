@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       get 'trendings/get', to: 'trendings#get'
       post 'trendings/add', to: 'trendings#add'
       put 'emisoras/change_emisora', to: 'emisoras#change_emisora'
+      get 'user_emisoras/isSuscripted', to: 'user_emisoras#isSuscripted'
     end
   end
   
