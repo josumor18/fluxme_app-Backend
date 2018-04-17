@@ -13,7 +13,7 @@ module Api
 						user.authentication_token = nil
 						user.save
 
-						useremisora = UserEmisoras.new(useremisora_params) 
+						useremisora = UserEmisora.new(useremisora_params) 
 						
 						if useremisora.save
 							render json: { status: 'SUCCESS', message: 'USUARIO SUSCRITO', data:user }, status: :created
