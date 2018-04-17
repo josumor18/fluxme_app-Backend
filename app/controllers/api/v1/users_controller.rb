@@ -18,7 +18,7 @@ module Api
 					user.save
 					user.update(:name=>params[:name])
 					user.update(:email=>params[:email])
-					render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO'}, status: :ok
+					render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO',authentication_token:user.authentication_token}, status: :ok
 				else
 					render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
 					
@@ -40,7 +40,7 @@ module Api
 						user.update(:email=>params[:email])
 						user.update(:password=>params[:new_password])
 
-						render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO'}, status: :ok
+						render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO', authentication_token:user.authentication_token}, status: :ok
 					
 					else
 						render json: { status: 'INVALID', message: 'Contraseña Incorrecta'}, status: :unauthorized
@@ -51,7 +51,7 @@ module Api
 				end
 
 			end
-			
+
 
 			def login
 				#email = params[:email]
