@@ -9,17 +9,22 @@ module Api
 				token = params[:authentication_token]
 				if(user)
 					if (user.authentication_token==token)
-						cancion = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
+						cancion = CancionesVotar.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
 						if (!cancion)
-							voto = VotacionesHistorico.new(id_emisora: params[:id_emisora], cancion: params[:cancion], votos: 0)
-							
-							if(voto.save)
-								user.authentication_token = nil
-								user.save
-								render json: { status: 'SUCCESS', message: 'Voto agregado', authentication_token:user.authentication_token }, status: :ok
+							cancion = CancionesVotar.new(id_emisora: params[:id_emisora], cancion: params[:cancion])
+							if (cancion.save)
+								voto = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
+								if(!voto)
+									voto = VotacionesHistorico.new(id_emisora: params[:id_emisora], cancion: params[:cancion], votos: 0)
+								end
+								if(voto.save)
+									user.authentication_token = nil
+									user.save
+									render json: { status: 'SUCCESS', message: 'Cancion agregada', authentication_token:user.authentication_token }, status: :ok
+								end
 							end
 						else
-							render json: { status: 'ERROR', message: 'Voto no agregado'}, status: :bad
+							render json: { status: 'ERROR', message: 'Canción no agregada'}, status: :bad
 						end
 						
 					else
@@ -48,6 +53,26 @@ module Api
 						else
 							render json: { status: 'ERROR', message: 'Voto no agregado'}, status: :bad
 						end
+						
+					else
+						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					end
+				else
+					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				end
+			end
+
+			#Obtiene los votos actuales del usuario
+			def get_canciones
+				user = User.where(id: params[:id_user]).first
+				token = params[:authentication_token]
+				if (user)
+					if (user.authentication_token==token)
+						user.authentication_token = nil
+						user.save
+						
+						lista_canciones = CancionesVotar.where(id_emisora: params[:id_emisora])
+						render json: { status: 'SUCCESS', message: 'Lista de canciones', canciones: lista_canciones, authentication_token:user.authentication_token }, status: :ok
 						
 					else
 						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
