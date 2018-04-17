@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       put 'emisoras/change_emisora', to: 'emisoras#change_emisora'
       get 'user_emisoras/isSuscripted', to: 'user_emisoras#isSuscripted'
       delete 'user_emisoras/deleteSuscription', to: 'user_emisoras#deleteSuscription'
+      get 'user_emisoras/getEmisorasFavoritas', to: 'user_emisoras#getEmisorasFavoritas'
     end
   end
   

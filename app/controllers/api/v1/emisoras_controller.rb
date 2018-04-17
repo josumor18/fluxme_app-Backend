@@ -19,6 +19,8 @@ module Api
 				end
 			end
 
+			
+
 			def change_emisora
 				user = User.where(id: params[:id_user]).first
 				token = params[:authentication_token]
