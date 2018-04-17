@@ -42,8 +42,7 @@ module Api
 				token = params[:authentication_token]
 
 				if (user&.authentication_token==token)
-					user.authentication_token = nil
-					user.save
+					
 				
 					if(useremisora)
 						user.authentication_token = nil
