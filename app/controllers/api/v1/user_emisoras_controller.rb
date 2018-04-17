@@ -67,11 +67,10 @@ module Api
 					
 				
 					if(useremisora)
-						user.authentication_token = nil
-						user.save
+						
 
 						UserEmisora.where(idUser: params[:idUser]).where(idEmisora: params[:idEmisora]).destroy_all
-						render json: { status: 'SUCCESS', message: 'SUSCRIPCION CANCELADA', authentication_token:user.authentication_token}, status: :ok
+						render json: { status: 'SUCCESS', message: 'SUSCRIPCION CANCELADA'}, status: :ok
 					else
 						render json: { status: 'ERROR', message: 'USUARIO NO SUSCRITO' }, status: :bad
 					end
