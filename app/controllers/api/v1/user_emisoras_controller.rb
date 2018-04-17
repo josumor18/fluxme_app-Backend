@@ -37,7 +37,7 @@ module Api
 			def isSuscripted
 
 				user = User.where(id: params[:idUser]).first
-				useremisora = UserEmisora.find_by(idUser: params[:idUser],idEmisora: params[:idUser])
+				useremisora = UserEmisora.find_by(idUser: params[:idUser],idEmisora: params[:idEmisora])
 				token = params[:authentication_token]
 
 				if (user&.authentication_token==token)
