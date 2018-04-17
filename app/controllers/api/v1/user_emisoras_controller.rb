@@ -41,8 +41,8 @@ module Api
 				token = params[:authentication_token]
 
 				if (user&.authentication_token==token)
-						user.authentication_token = nil
-						user.save
+					user.authentication_token = nil
+					user.save
 				
 					if(useremisora)
 						render json: { status: 'SUCCESS', message: 'USUARIO SUSCRITO', authentication_token:user.authentication_token}, status: :ok
