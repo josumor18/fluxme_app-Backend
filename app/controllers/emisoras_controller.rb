@@ -69,6 +69,6 @@ class EmisorasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def emisora_params
-      params.require(:emisora).permit(:nombre, :link, :id_admin)
+      params.require(:emisora).permit(:nombre, :link, :id_admin, :descripcion)
     end
 end
