@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_emisora: 1
+  cancion: MyString
+  votos: 1
+
+two:
+  id_emisora: 1
+  cancion: MyString
+  votos: 1

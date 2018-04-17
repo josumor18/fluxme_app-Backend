@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :votaciones_historicos
   resources :trendings
   resources :localizacion_stats
   resources :user_emisoras
@@ -24,6 +25,14 @@ Rails.application.routes.draw do
       post 'user_emisoras/setSuscription', to: 'user_emisoras#setSuscription'
       get 'trendings/get', to: 'trendings#get'
       post 'trendings/add', to: 'trendings#add'
+      put 'emisoras/change_emisora', to: 'emisoras#change_emisora'
+      get 'user_emisoras/isSuscripted', to: 'user_emisoras#isSuscripted'
+      delete 'user_emisoras/deleteSuscription', to: 'user_emisoras#deleteSuscription'
+      get 'user_emisoras/getEmisorasFavoritas', to: 'user_emisoras#getEmisorasFavoritas'
+      post 'votaciones/add_cancion', to: 'votaciones#add_cancion'
+      post 'votaciones/add_voto', to: 'votaciones#add_voto'
+      get 'votaciones/get_mis_votos', to: 'votaciones#get_mis_votos'
+      delete 'votaciones/del_voto', to: 'votaciones#del_voto'
     end
   end
   

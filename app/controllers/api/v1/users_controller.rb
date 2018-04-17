@@ -11,30 +11,47 @@ module Api
 
 			def change_user
 				user = user = User.where(id: params[:id]).first
-				user.update(:name=>params[:name])
-				user.update(:email=>params[:email])
-				render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO'}, status: :ok
+				token = params[:authentication_token]
+
+				if (user&.authentication_token==token)
+					user.authentication_token = nil
+					user.save
+					user.update(:name=>params[:name])
+					user.update(:email=>params[:email])
+					render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO',authentication_token:user.authentication_token}, status: :ok
+				else
+					render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					
+				end
 			end
 
 
 			def change_pass
 				user = User.where(id: params[:id]).first
-
+				token = params[:authentication_token]
 				pass = params[:password]
-				if (user&.valid_password?(pass))
-					#update
-					user.update(:name=>params[:name])
-					user.update(:email=>params[:email])
-					user.update(:password=>params[:new_password])
 
-					render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO'}, status: :ok
-				
+				if (user&.authentication_token==token)
+					user.authentication_token = nil
+					user.save
+					if (user&.valid_password?(pass))
+						#update
+						user.update(:name=>params[:name])
+						user.update(:email=>params[:email])
+						user.update(:password=>params[:new_password])
+
+						render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO', authentication_token:user.authentication_token}, status: :ok
+					
+					else
+						render json: { status: 'INVALID', message: 'Contraseña Incorrecta'}, status: :unauthorized
+
+					end
 				else
-					render json: { status: 'INVALID', message: 'Contraseña Incorrecta'}, status: :unauthorized
-
+					render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
 				end
 
 			end
+
 
 			def login
 				#email = params[:email]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416222801) do
+ActiveRecord::Schema.define(version: 20180417163105) do
 
   create_table "emisoras", force: :cascade do |t|
     t.string   "nombre"
@@ -79,5 +79,21 @@ ActiveRecord::Schema.define(version: 20180416222801) do
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "votaciones_historicos", force: :cascade do |t|
+    t.integer  "id_emisora"
+    t.string   "cancion"
+    t.integer  "votos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "votos", force: :cascade do |t|
+    t.integer  "id_user"
+    t.integer  "id_emisora"
+    t.string   "cancion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
