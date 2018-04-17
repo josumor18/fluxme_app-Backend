@@ -57,6 +57,30 @@ module Api
 				end
 			end
 
+			def deleteSuscription
+
+				user = User.where(id: params[:idUser]).first
+				useremisora = UserEmisora.find_by(idUser: params[:idUser],idEmisora: params[:idEmisora])
+				token = params[:authentication_token]
+
+				if (user&.authentication_token==token)
+					
+				
+					if(useremisora)
+						user.authentication_token = nil
+						user.save
+
+						UserEmisora.where(idUser: params[:idUser]).where(idEmisora: params[:idEmisora]).destroy_all
+						render json: { status: 'SUCCESS', message: 'SUSCRIPCION CANCELADA', authentication_token:user.authentication_token}, status: :ok
+					else
+						render json: { status: 'ERROR', message: 'USUARIO NO SUSCRITO' }, status: :bad
+					end
+				else
+					render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					
+				end
+			end
+
 
 
 			private
