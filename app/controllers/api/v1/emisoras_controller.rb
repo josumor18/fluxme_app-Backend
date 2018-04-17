@@ -17,6 +17,16 @@ module Api
 					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
 				end
 			end
+
+			def change_emisora
+				emisora = Emisora.where(id: params[:id]).first
+				emisora.update(:nombre=>params[:nombre])
+				emisora.update(:descripcion=>params[:descripcion])
+				render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO'}, status: :ok
+			end
+		
+
+
 		end
 	end
 end
