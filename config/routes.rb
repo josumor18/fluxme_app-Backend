@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       post 'user_emisoras/setSuscription', to: 'user_emisoras#setSuscription'
       get 'trendings/get', to: 'trendings#get'
       post 'trendings/add', to: 'trendings#add'
+      put 'emisoras/change_emisora', to: 'emisoras#change_emisora'
     end
   end
   
