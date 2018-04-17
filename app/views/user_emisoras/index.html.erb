@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing User Emisoras</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Iduser</th>
+      <th>Idemisora</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_emisoras.each do |user_emisora| %>
+      <tr>
+        <td><%= user_emisora.idUser %></td>
+        <td><%= user_emisora.idEmisora %></td>
+        <td><%= link_to 'Show', user_emisora %></td>
+        <td><%= link_to 'Edit', edit_user_emisora_path(user_emisora) %></td>
+        <td><%= link_to 'Destroy', user_emisora, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User emisora', new_user_emisora_path %>

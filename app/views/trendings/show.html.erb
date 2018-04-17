@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id emisora:</strong>
+  <%= @trending.id_emisora %>
+</p>
+
+<p>
+  <strong>Posicion:</strong>
+  <%= @trending.posicion %>
+</p>
+
+<p>
+  <strong>Cancion:</strong>
+  <%= @trending.cancion %>
+</p>
+
+<p>
+  <strong>Artista:</strong>
+  <%= @trending.artista %>
+</p>
+
+<p>
+  <strong>Imagen:</strong>
+  <%= @trending.imagen %>
+</p>
+
+<%= link_to 'Edit', edit_trending_path(@trending) %> |
+<%= link_to 'Back', trendings_path %>

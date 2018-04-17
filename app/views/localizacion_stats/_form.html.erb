@@ -1,0 +1,41 @@
+<%= form_for(@localizacion_stat) do |f| %>
+  <% if @localizacion_stat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@localizacion_stat.errors.count, "error") %> prohibited this localizacion_stat from being saved:</h2>
+
+      <ul>
+      <% @localizacion_stat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :id_user %><br>
+    <%= f.number_field :id_user %>
+  </div>
+  <div class="field">
+    <%= f.label :id_emisora %><br>
+    <%= f.number_field :id_emisora %>
+  </div>
+  <div class="field">
+    <%= f.label :ciudad %><br>
+    <%= f.text_field :ciudad %>
+  </div>
+  <div class="field">
+    <%= f.label :pais %><br>
+    <%= f.text_field :pais %>
+  </div>
+  <div class="field">
+    <%= f.label :longitud %><br>
+    <%= f.text_field :longitud %>
+  </div>
+  <div class="field">
+    <%= f.label :latitud %><br>
+    <%= f.text_field :latitud %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

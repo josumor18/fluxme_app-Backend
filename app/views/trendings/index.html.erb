@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Trendings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id emisora</th>
+      <th>Posicion</th>
+      <th>Cancion</th>
+      <th>Artista</th>
+      <th>Imagen</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trendings.each do |trending| %>
+      <tr>
+        <td><%= trending.id_emisora %></td>
+        <td><%= trending.posicion %></td>
+        <td><%= trending.cancion %></td>
+        <td><%= trending.artista %></td>
+        <td><%= trending.imagen %></td>
+        <td><%= link_to 'Show', trending %></td>
+        <td><%= link_to 'Edit', edit_trending_path(trending) %></td>
+        <td><%= link_to 'Destroy', trending, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trending', new_trending_path %>

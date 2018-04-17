@@ -11,12 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415061030) do
+ActiveRecord::Schema.define(version: 20180416222801) do
 
   create_table "emisoras", force: :cascade do |t|
     t.string   "nombre"
     t.string   "link"
     t.integer  "id_admin"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "descripcion"
+  end
+
+  create_table "localizacion_stats", force: :cascade do |t|
+    t.integer  "id_user"
+    t.integer  "id_emisora"
+    t.string   "ciudad"
+    t.string   "pais"
+    t.float    "longitud"
+    t.float    "latitud"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trendings", force: :cascade do |t|
+    t.integer  "id_emisora"
+    t.integer  "posicion"
+    t.string   "cancion"
+    t.string   "artista"
+    t.string   "imagen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -26,6 +48,13 @@ ActiveRecord::Schema.define(version: 20180415061030) do
     t.integer  "id_emisora"
     t.float    "longitud"
     t.float    "latitud"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_emisoras", force: :cascade do |t|
+    t.integer  "idUser"
+    t.integer  "idEmisora"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

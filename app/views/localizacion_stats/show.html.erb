@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id user:</strong>
+  <%= @localizacion_stat.id_user %>
+</p>
+
+<p>
+  <strong>Id emisora:</strong>
+  <%= @localizacion_stat.id_emisora %>
+</p>
+
+<p>
+  <strong>Ciudad:</strong>
+  <%= @localizacion_stat.ciudad %>
+</p>
+
+<p>
+  <strong>Pais:</strong>
+  <%= @localizacion_stat.pais %>
+</p>
+
+<p>
+  <strong>Longitud:</strong>
+  <%= @localizacion_stat.longitud %>
+</p>
+
+<p>
+  <strong>Latitud:</strong>
+  <%= @localizacion_stat.latitud %>
+</p>
+
+<%= link_to 'Edit', edit_localizacion_stat_path(@localizacion_stat) %> |
+<%= link_to 'Back', localizacion_stats_path %>

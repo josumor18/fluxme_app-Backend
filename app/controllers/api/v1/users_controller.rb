@@ -9,6 +9,33 @@ module Api
 				render json: { status: 'SUCCESS', message: 'Loaded users', data:users }, status: :ok
 			end
 
+			def change_user
+				user = user = User.where(id: params[:id]).first
+				user.update(:name=>params[:name])
+				user.update(:email=>params[:email])
+				render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO'}, status: :ok
+			end
+
+
+			def change_pass
+				user = User.where(id: params[:id]).first
+
+				pass = params[:password]
+				if (user&.valid_password?(pass))
+					#update
+					user.update(:name=>params[:name])
+					user.update(:email=>params[:email])
+					user.update(:password=>params[:new_password])
+
+					render json: { status: 'SUCCESS', message: 'CAMBIO EXITOSO'}, status: :ok
+				
+				else
+					render json: { status: 'INVALID', message: 'Contraseña Incorrecta'}, status: :unauthorized
+
+				end
+
+			end
+
 			def login
 				#email = params[:email]
 				user = User.where(email: params[:email]).first

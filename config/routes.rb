@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :trendings
+  resources :localizacion_stats
+  resources :user_emisoras
   resources :emisoras
   devise_for :users
   get 'home/index'
@@ -16,6 +19,11 @@ Rails.application.routes.draw do
       post 'ubicaciones/add', to: 'ubicaciones#add'
       get 'ubicaciones/get', to: 'ubicaciones#get'
       delete 'ubicaciones/del_ubicacion', to: 'ubicaciones#del_ubicacion'
+      put 'users/change_pass', to: 'users#change_pass'
+      put 'users/change_user', to: 'users#change_user'
+      post 'user_emisoras/setSuscription', to: 'user_emisoras#setSuscription'
+      get 'trendings/get', to: 'trendings#get'
+      post 'trendings/add', to: 'trendings#add'
     end
   end
   
