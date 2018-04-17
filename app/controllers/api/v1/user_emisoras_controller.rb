@@ -45,6 +45,8 @@ module Api
 					user.save
 				
 					if(useremisora)
+						user.authentication_token = nil
+						user.save
 						render json: { status: 'SUCCESS', message: 'USUARIO SUSCRITO', authentication_token:user.authentication_token}, status: :ok
 					else
 						render json: { status: 'ERROR', message: 'USUARIO NO SUSCRITO' }, status: :bad
