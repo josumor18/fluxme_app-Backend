@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       get 'user_emisoras/getEmisorasFavoritas', to: 'user_emisoras#getEmisorasFavoritas'
       post 'votaciones/add_cancion', to: 'votaciones#add_cancion'
       post 'votaciones/add_voto', to: 'votaciones#add_voto'
+      get 'votaciones/get_canciones', to: 'votaciones#get_canciones'
       get 'votaciones/get_mis_votos', to: 'votaciones#get_mis_votos'
       delete 'votaciones/del_voto', to: 'votaciones#del_voto'
     end
