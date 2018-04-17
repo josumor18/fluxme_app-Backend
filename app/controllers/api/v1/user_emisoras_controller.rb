@@ -87,7 +87,7 @@ module Api
 					if (user.authentication_token==token)
 						user.authentication_token = nil
 						user.save
-						list_emisoras = UserEmisora.find_by(idUser: params[:id])
+						list_emisoras = UserEmisora.where(idUser: params[:id])
 						render json: { status: 'SUCCESS', message: 'Lista de emisoras', emisoras: list_emisoras, authentication_token:user.authentication_token }, status: :ok
 					else
 						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
