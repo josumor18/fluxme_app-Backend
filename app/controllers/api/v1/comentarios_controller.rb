@@ -13,7 +13,7 @@ module Api
 					if (user.authentication_token==token)
 						emisora = Emisora.find(params[:emisora_id])
                         comentarios = emisora.comentarios
-                        render json: { status: 'SUCCESS', message: 'Comentario', comentarios: comentarios, authentication_token:user.authentication_token }, status: :created
+                        render json: { status: 'SUCCESS', message: 'Comentario', comentarios: comentarios, authentication_token:user.authentication_token }, status: :ok
 					else
 						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
 					end
@@ -31,7 +31,7 @@ module Api
 					if (user.authentication_token==token)
 						emisora = Emisora.find(params[:emisora_id])
                         comentario = emisora.comentarios.create(comentario_params)
-                        render json: { status: 'SUCCESS', message: 'Comentario', comentario: comentario, authentication_token:user.authentication_token }, status: :ok
+                        render json: { status: 'SUCCESS', message: 'Comentario', comentario: comentario, authentication_token:user.authentication_token }, status: :created
 					else
 						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
 					end
