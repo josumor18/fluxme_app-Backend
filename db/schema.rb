@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20180417194749) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comentarios", force: :cascade do |t|
+    t.string   "comentarista"
+    t.text     "cuerpo"
+    t.integer  "emisora_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "comentarios", ["emisora_id"], name: "index_comentarios_on_emisora_id"
+
   create_table "emisoras", force: :cascade do |t|
     t.string   "nombre"
     t.string   "link"
