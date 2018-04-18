@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idUser: 1
+  idEmisora: 1
+  dia: MyString
+  hora: MyString
+  titulo: MyString
+
+two:
+  idUser: 1
+  idEmisora: 1
+  dia: MyString
+  hora: MyString
+  titulo: MyString

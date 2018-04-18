@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :comentarios
+  resources :programacions
   resources :votaciones_historicos
   resources :trendings
   resources :localizacion_stats
@@ -38,6 +39,8 @@ Rails.application.routes.draw do
       post 'votaciones/add_cancion', to: 'votaciones#add_cancion'
       post 'comentarios/add_comentarios', to: 'comentarios#add_comentarios'
       get 'comentarios/get_comentarios', to: 'comentarios#get_comentarios'
+      delete 'votaciones/del_cancion', to: 'votaciones#del_cancion'
+      post 'programacions/setProgramacion', to: 'programacions#setProgramacion'
     end
   end
   
