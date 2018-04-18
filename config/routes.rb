@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'votaciones/get_canciones', to: 'votaciones#get_canciones'
       get 'votaciones/get_mis_votos', to: 'votaciones#get_mis_votos'
       delete 'votaciones/del_voto', to: 'votaciones#del_voto'
+      delete 'votaciones/del_cancion', to: 'votaciones#del_cancion'
     end
   end
   

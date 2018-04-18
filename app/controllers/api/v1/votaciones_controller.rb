@@ -3,6 +3,26 @@ module Api
 		class VotacionesController < ApplicationController
 			protect_from_forgery with: :null_session
 
+			#Obtiene las canciones actuales de la emisora
+			def get_canciones
+				user = User.where(id: params[:id_user]).first
+				token = params[:authentication_token]
+				if (user)
+					if (user.authentication_token==token)
+						user.authentication_token = nil
+						user.save
+						
+						lista_canciones = CancionesVotar.where(id_emisora: params[:id_emisora])
+						render json: { status: 'SUCCESS', message: 'Lista de canciones', canciones: lista_canciones, authentication_token:user.authentication_token }, status: :ok
+						
+					else
+						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					end
+				else
+					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				end
+			end
+
 			#Agrega una nueva canción
 			def add_cancion
 				user = User.where(id: params[:id_user]).first
@@ -35,6 +55,27 @@ module Api
 				end
 			end
 
+			#Eliminar voto de un usuario
+			def del_cancion
+				user = User.where(id: params[:id_user]).first
+				token = params[:authentication_token]
+				if(user)
+					if (user.authentication_token==token)
+						CancionesVotar.where(id_emisora: params[:id_emisora]).where(cancion: params[:cancion]).destroy_all
+
+						Voto.where(id_emisora: params[:id_emisora]).where(cancion: params[:cancion]).destroy_all
+
+						render json: { status: 'DELETED', message: 'Canción eliminada'}, status: :ok
+					else
+						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					end
+				else
+					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				end
+			end
+
+			#######################################################################################
+
 			#Agrega una nueva ubicación
 			def add_voto
 				user = User.where(id: params[:id_user]).first
@@ -62,25 +103,7 @@ module Api
 				end
 			end
 
-			#Obtiene los votos actuales del usuario
-			def get_canciones
-				user = User.where(id: params[:id_user]).first
-				token = params[:authentication_token]
-				if (user)
-					if (user.authentication_token==token)
-						user.authentication_token = nil
-						user.save
-						
-						lista_canciones = CancionesVotar.where(id_emisora: params[:id_emisora])
-						render json: { status: 'SUCCESS', message: 'Lista de canciones', canciones: lista_canciones, authentication_token:user.authentication_token }, status: :ok
-						
-					else
-						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
-					end
-				else
-					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
-				end
-			end
+			
 
 			#Obtiene los votos actuales del usuario
 			def get_mis_votos
@@ -113,7 +136,7 @@ module Api
 						votH = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
 						votoH.update(:votos=> votoH.votos - 1)
 
-						render json: { status: 'DELETED', message: 'Ubicacion eliminada'}, status: :ok
+						render json: { status: 'DELETED', message: 'Voto eliminado'}, status: :ok
 					else
 						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
 					end
