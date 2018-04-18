@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417194749) do
+ActiveRecord::Schema.define(version: 20180418035701) do
 
   create_table "canciones_votars", force: :cascade do |t|
     t.integer  "id_emisora"
@@ -98,9 +98,9 @@ ActiveRecord::Schema.define(version: 20180417194749) do
   create_table "votos", force: :cascade do |t|
     t.integer  "id_user"
     t.integer  "id_emisora"
-    t.string   "cancion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "id_cancion"
   end
 
 end
