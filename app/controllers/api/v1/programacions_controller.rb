@@ -10,8 +10,7 @@ module Api
 				if (user && emisora)
 
 					if (user.authentication_token==token)
-						
-
+						Programacion.where(dia: params[:dia]).where(hora: params[:hora]).where(idEmisora: params[:idEmisora]).destroy_all
 						programacion = Programacion.new(programacion_params) 
 						
 						if programacion.save
