@@ -65,7 +65,7 @@ module Api
 					if (user.authentication_token==token)
 						CancionesVotar.where(id: params[:id_cancion]).destroy_all
 
-						Voto.where(id_emisora: params[:id_emisora]).where(cancion: params[:cancion]).destroy_all
+						Voto.where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_cancion]).destroy_all
 
 						render json: { status: 'DELETED', message: 'Canción eliminada'}, status: :ok
 					else
@@ -84,10 +84,11 @@ module Api
 				token = params[:authentication_token]
 				if(user)
 					if (user.authentication_token==token)
-						Voto.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora]).where(cancion: params[:cancion]).destroy_all
-						voto = Voto.new(id_user: params[:id_user], id_emisora: params[:id_emisora], cancion: params[:cancion])
+						Voto.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_cancion]).destroy_all
+						voto = Voto.new(id_user: params[:id_user], id_emisora: params[:id_emisora], id_cancion: params[:id_cancion])
 						if (voto.save)
-							votH = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
+							cancion = CancionesVotar.where(id: params[:id_cancion])
+							votH = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: cancion.cancion)
 							votoH.update(:votos=> votoH.votos + 1)
 							
 							user.authentication_token = nil
@@ -133,8 +134,8 @@ module Api
 				token = params[:authentication_token]
 				if(user)
 					if (user.authentication_token==token)
-						Voto.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora]).where(cancion: params[:cancion]).destroy_all
-
+						Voto.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_ancion]).destroy_all
+						cancion = CancionesVotar.where
 						votH = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
 						votoH.update(:votos=> votoH.votos - 1)
 
