@@ -40,7 +40,9 @@ module Api
 								if(voto.save)
 									user.authentication_token = nil
 									user.save
-									render json: { status: 'SUCCESS', message: 'Cancion agregada', authentication_token:user.authentication_token }, status: :ok
+
+									lista_canciones = CancionesVotar.where(id_emisora: params[:id_emisora])
+									render json: { status: 'SUCCESS', message: 'Cancion agregada', canciones: lista_canciones, authentication_token:user.authentication_token }, status: :ok
 								end
 							end
 						else
@@ -61,7 +63,7 @@ module Api
 				token = params[:authentication_token]
 				if(user)
 					if (user.authentication_token==token)
-						CancionesVotar.where(id_emisora: params[:id_emisora]).where(cancion: params[:cancion]).destroy_all
+						CancionesVotar.where(id: params[:id_cancion]).destroy_all
 
 						Voto.where(id_emisora: params[:id_emisora]).where(cancion: params[:cancion]).destroy_all
 
