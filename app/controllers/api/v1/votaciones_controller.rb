@@ -87,8 +87,7 @@ module Api
 						Voto.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_cancion]).destroy_all
 						voto = Voto.new(id_user: params[:id_user], id_emisora: params[:id_emisora], id_cancion: params[:id_cancion])
 						if (voto.save)
-							cancion = CancionesVotar.where(id: params[:id_cancion])
-							votH = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: cancion.cancion)
+							votoH = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:nom_cancion])
 							votoH.update(:votos=> votoH.votos + 1)
 							
 							user.authentication_token = nil
