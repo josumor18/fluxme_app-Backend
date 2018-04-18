@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Iduser:</strong>
+  <%= @programacion.idUser %>
+</p>
+
+<p>
+  <strong>Idemisora:</strong>
+  <%= @programacion.idEmisora %>
+</p>
+
+<p>
+  <strong>Dia:</strong>
+  <%= @programacion.dia %>
+</p>
+
+<p>
+  <strong>Hora:</strong>
+  <%= @programacion.hora %>
+</p>
+
+<p>
+  <strong>Titulo:</strong>
+  <%= @programacion.titulo %>
+</p>
+
+<%= link_to 'Edit', edit_programacion_path(@programacion) %> |
+<%= link_to 'Back', programacions_path %>
