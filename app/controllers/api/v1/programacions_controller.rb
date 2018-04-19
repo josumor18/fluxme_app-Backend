@@ -10,12 +10,13 @@ module Api
 				if (user && emisora)
 
 					if (user.authentication_token==token)
+						user.authentication_token = nil
+						user.save
 						Programacion.where(dia: params[:dia]).where(hora: params[:hora]).where(idEmisora: params[:idEmisora]).destroy_all
 						programacion = Programacion.new(programacion_params) 
 						
 						if programacion.save
-							user.authentication_token = nil
-							user.save
+							
 							render json: { status: 'SUCCESS', message: 'PROGRAMACION AGREGADA', authentication_token:user.authentication_token }, status: :created
 						
 						else	
