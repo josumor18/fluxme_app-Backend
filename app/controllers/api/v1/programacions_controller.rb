@@ -71,7 +71,7 @@ module Api
 					#end
 				#else
 					#render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
-				end
+				#end
 			end
 
 
