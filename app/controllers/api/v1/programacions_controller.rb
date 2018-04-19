@@ -40,11 +40,12 @@ module Api
 				token = params[:authentication_token]
 				if (user)
 					if (user.authentication_token==token)
-						user.authentication_token = nil
-						user.save
+						
 						
 						programacion = Programacion.where(idEmisora: params[:idEmisora])
 						if(programacion)
+							user.authentication_token = nil
+							user.save
 							render json: { status: 'SUCCESS', message: 'Lista de programaciones', programacion: programacion, authentication_token:user.authentication_token }, status: :ok
 						end
 					else
