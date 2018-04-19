@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       get 'programacions/getProgramacion', to: 'programacions#getProgramacion'
       get 'estadisticas/get_ubicaciones', to: 'estadisticas#get_ubicaciones'
       get 'estadisticas/get_votaciones', to: 'estadisticas#get_votaciones'
+      delete 'programacions/deleteProgramacion', to: 'programacions#deleteProgramacion'    
     end
   end
   
