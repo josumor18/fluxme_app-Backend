@@ -61,9 +61,9 @@ module Api
 				#if (user)
 					#if (user.authentication_token==token)
 						
-				progBorrada = Programacion.where(dia: params[:dia]).where(idEmisora: params[:idEmisora]).where(hora: params[:hora]).destroy_all
+				Programacion.where(dia: params[:dia]).where(idEmisora: params[:idEmisora]).where(hora: params[:hora]).destroy_all
 				#if (progBorrada)
-					render json: { status: 'SUCCESS', message: 'Programacion borrada'}, status: :ok
+				render json: { status: 'SUCCESS', message: 'Programacion borrada'}, status: :ok
 				#else	
 					#render json: { status: 'ERROR', message: 'Programacio no borrada'}, status: :bad	
 					#else
