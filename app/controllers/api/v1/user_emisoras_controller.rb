@@ -85,11 +85,11 @@ module Api
 				token = params[:authentication_token]
 				if (user)
 					if (user.authentication_token==token)
-						
+						user.authentication_token = nil
+						user.save
 						list_emisoras = UserEmisora.where(idUser: params[:id])
 						if(list_emisoras)
-							user.authentication_token = nil
-							user.save
+							
 							render json: { status: 'SUCCESS', message: 'Lista de emisoras', emisoras: list_emisoras, authentication_token:user.authentication_token }, status: :ok
 						end
 					else
