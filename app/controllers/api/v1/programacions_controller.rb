@@ -56,8 +56,8 @@ module Api
 			
 			def deleteProgramacion
 
-				user = User.where(id: params[:idUser]).first
-				token = params[:authentication_token]
+				#user = User.where(id: params[:idUser]).first
+				#token = params[:authentication_token]
 				#if (user)
 					#if (user.authentication_token==token)
 						
