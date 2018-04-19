@@ -37,17 +37,17 @@ module Api
 
 			def getProgramacion
 				user = User.where(id: params[:idUser]).first
+				programacion = Programacion.where(idEmisora: params[:idEmisora])
 				token = params[:authentication_token]
-				if (user)
+				if (user && programacion)
 					if (user.authentication_token==token)
 						
 						
-						programacion = Programacion.where(idEmisora: params[:idEmisora])
-						if(programacion)
-							user.authentication_token = nil
-							user.save
-							render json: { status: 'SUCCESS', message: 'Lista de programaciones', programacion: programacion, authentication_token:user.authentication_token }, status: :ok
-						end
+						
+						user.authentication_token = nil
+						user.save
+						render json: { status: 'SUCCESS', message: 'Lista de programaciones', programacion: programacion, authentication_token:user.authentication_token }, status: :ok
+						
 					else
 						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
 					end
