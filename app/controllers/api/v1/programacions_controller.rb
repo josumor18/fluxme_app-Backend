@@ -61,19 +61,15 @@ module Api
 				emisora = Progrmacion.find_by(idEmisora: params[:idEmisora])
 				token = params[:authentication_token]
 
-				if (user&.authentication_token==token)
 					
 				
-					if(emisora)
 						
 
-						Progrmacion.where(idEmisora: params[:idEmisora]).where(dia: params[:dia]).where(hora: params[:hora]).destroy_all
-						render json: { status: 'SUCCESS', message: 'PROGRAMACION ELIMINADA'}, status: :ok
-					else
-						render json: { status: 'ERROR', message: 'USUARIO NO SUSCRITO' }, status: :bad
-					end
-				else
-					render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+				Progrmacion.where(idEmisora: params[:idEmisora]).where(dia: params[:dia]).where(hora: params[:hora]).destroy_all
+				render json: { status: 'SUCCESS', message: 'PROGRAMACION ELIMINADA'}, status: :ok
+			
+					
+				
 					
 				end
 				
