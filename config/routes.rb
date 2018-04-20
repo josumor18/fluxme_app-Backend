@@ -41,6 +41,10 @@ Rails.application.routes.draw do
       get 'comentarios/get_comentarios', to: 'comentarios#get_comentarios'
       delete 'votaciones/del_cancion', to: 'votaciones#del_cancion'
       post 'programacions/setProgramacion', to: 'programacions#setProgramacion'
+      get 'programacions/getProgramacion', to: 'programacions#getProgramacion'
+      get 'estadisticas/get_ubicaciones', to: 'estadisticas#get_ubicaciones'
+      get 'estadisticas/get_votaciones', to: 'estadisticas#get_votaciones'
+      delete 'programacions/deleteProgramacion', to: 'programacions#deleteProgramacion'    
     end
   end
   
