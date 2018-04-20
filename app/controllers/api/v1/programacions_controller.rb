@@ -57,23 +57,26 @@ module Api
 			end
 			
 			def deleteProgramacion
+				user = User.where(id: params[:idUser]).first
+				emisora = Progrmacion.find_by(idEmisora: params[:idEmisora])
+				token = params[:authentication_token]
 
-				#user = User.where(id: params[:idUser]).first
-				#token = params[:authentication_token]
-				#if (user)
-					#if (user.authentication_token==token)
+				if (user&.authentication_token==token)
+					
+				
+					if(emisora)
 						
-				Programacion.where(dia: params[:dia]).where(idEmisora: params[:idEmisora]).where(hora: params[:hora]).destroy_all
-				#if (progBorrada)
-				render json: { status: 'SUCCESS', message: 'Programacion borrada'}, status: :ok
-				#else	
-					#render json: { status: 'ERROR', message: 'Programacio no borrada'}, status: :bad	
-					#else
-					#	render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
-					#end
-				#else
-					#render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
-				#end
+
+						Progrmacion.where(idEmisora: params[:idEmisora]).destroy_all
+						render json: { status: 'SUCCESS', message: 'PROGRAMACION ELIMINADA'}, status: :ok
+					else
+						render json: { status: 'ERROR', message: 'USUARIO NO SUSCRITO' }, status: :bad
+					end
+				else
+					render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					
+				end
+				
 			end
 
 
