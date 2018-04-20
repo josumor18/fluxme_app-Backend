@@ -67,7 +67,7 @@ module Api
 					if(emisora)
 						
 
-						Progrmacion.where(idEmisora: params[:idEmisora]).destroy_all
+						Progrmacion.where(idEmisora: params[:idEmisora]).where(dia: params[:dia].where[hora: params[:hora].destroy_all
 						render json: { status: 'SUCCESS', message: 'PROGRAMACION ELIMINADA'}, status: :ok
 					else
 						render json: { status: 'ERROR', message: 'USUARIO NO SUSCRITO' }, status: :bad
