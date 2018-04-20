@@ -58,14 +58,14 @@ module Api
 			
 			def deleteProgramacion
 				user = User.where(id: params[:idUser]).first
-				emisora = Progrmacion.find_by(idEmisora: params[:idEmisora])
+				emisora = Programacion.find_by(idEmisora: params[:idEmisora])
 				token = params[:authentication_token]
 
 					
 				
 						
 
-				Progrmacion.where(idEmisora: params[:idEmisora]).where(dia: params[:dia]).where(hora: params[:hora]).destroy_all
+				Programacion.where(idEmisora: params[:idEmisora]).where(dia: params[:dia]).where(hora: params[:hora]).destroy_all
 				render json: { status: 'SUCCESS', message: 'PROGRAMACION ELIMINADA'}, status: :ok
 			
 					
