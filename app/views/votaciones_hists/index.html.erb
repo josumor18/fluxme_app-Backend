@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Votaciones Hists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id emisora</th>
+      <th>Cancion</th>
+      <th>Votos</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @votaciones_hists.each do |votaciones_hist| %>
+      <tr>
+        <td><%= votaciones_hist.id_emisora %></td>
+        <td><%= votaciones_hist.cancion %></td>
+        <td><%= votaciones_hist.votos %></td>
+        <td><%= link_to 'Show', votaciones_hist %></td>
+        <td><%= link_to 'Edit', edit_votaciones_hist_path(votaciones_hist) %></td>
+        <td><%= link_to 'Destroy', votaciones_hist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Votaciones hist', new_votaciones_hist_path %>

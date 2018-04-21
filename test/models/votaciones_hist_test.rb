@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CancionesVotarTest < ActiveSupport::TestCase
+class VotacionesHistTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

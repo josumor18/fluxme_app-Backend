@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :votaciones_hists
   resources :comentarios
   resources :programacions
-  resources :votaciones_historicos
   resources :trendings
   resources :localizacion_stats
   resources :user_emisoras

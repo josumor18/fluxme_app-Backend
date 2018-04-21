@@ -1,10 +1,10 @@
-<%= form_for(@votaciones_historico) do |f| %>
-  <% if @votaciones_historico.errors.any? %>
+<%= form_for(@votaciones_hist) do |f| %>
+  <% if @votaciones_hist.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@votaciones_historico.errors.count, "error") %> prohibited this votaciones_historico from being saved:</h2>
+      <h2><%= pluralize(@votaciones_hist.errors.count, "error") %> prohibited this votaciones_hist from being saved:</h2>
 
       <ul>
-      <% @votaciones_historico.errors.full_messages.each do |message| %>
+      <% @votaciones_hist.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

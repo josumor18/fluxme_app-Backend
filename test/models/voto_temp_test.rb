@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class VotacionesHistoricoTest < ActiveSupport::TestCase
+class VotoTempTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -1,7 +1,8 @@
-class CreateVotacionesHistoricos < ActiveRecord::Migration
+class CreateVotacionesHists < ActiveRecord::Migration
   def change
-    create_table :votaciones_historicos do |t|
+    create_table :votaciones_hists do |t|
       t.integer :id_emisora
+      t.integer :id_cancion
       t.string :cancion
       t.integer :votos
 

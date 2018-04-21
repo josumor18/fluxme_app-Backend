@@ -2,8 +2,12 @@
 
 one:
   id_emisora: 1
+  id_cancion: 1
   cancion: MyString
+  votos: 1
 
 two:
   id_emisora: 1
+  id_cancion: 1
   cancion: MyString
+  votos: 1
