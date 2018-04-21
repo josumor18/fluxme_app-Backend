@@ -5,30 +5,30 @@ module Api
 
 			#Obtiene las canciones actuales de la emisora
 			def get_canciones
-				#user = User.where(id: params[:id_user]).first
-				#token = params[:authentication_token]
-				#if (user)
-					#if (user.authentication_token==token)
-						#user.authentication_token = nil
-						#user.save
+				user = User.where(id: params[:id_user]).first
+				token = params[:authentication_token]
+				if (user)
+					if (user.authentication_token==token)
+						user.authentication_token = nil
+						user.save
 						
 						lista_canciones = VotacionesTemporal.where(id_emisora: params[:id_emisora])
 						render json: { status: 'SUCCESS', message: 'Lista de canciones', canciones: lista_canciones},status: :ok#, authentication_token:user.authentication_token }, status: :ok
 						
-					#else
-						#render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
-					#end
-				#else
-					#render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
-				#end
+					else
+						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					end
+				else
+					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				end
 			end
 
 			#Agrega una nueva canción
 			def add_cancion
-				#user = User.where(id: params[:id_user]).first
-				#token = params[:authentication_token]
-				#if(user)
-					#if (user.authentication_token==token)
+				user = User.where(id: params[:id_user]).first
+				token = params[:authentication_token]
+				if(user)
+					if (user.authentication_token==token)
 						voto = VotacionesHist.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
 						if(!voto)
 							voto = VotacionesHist.new(id_emisora: params[:id_emisora], cancion: params[:cancion], votos: 0)
@@ -45,12 +45,12 @@ module Api
 										render json: { status: 'ERROR', message: 'Canción no agregada'}, status: :bad
 									end
 						end
-					#else
-						#render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
-					#end
-				#else
-					#render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
-				#end
+					else
+						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					end
+				else
+					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				end
 			end
 
 			#Eliminar voto de un usuario
