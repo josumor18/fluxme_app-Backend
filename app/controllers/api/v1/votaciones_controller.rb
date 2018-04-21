@@ -13,7 +13,7 @@ module Api
 						user.save
 						
 						lista_canciones = VotacionesTemporal.where(id_emisora: params[:id_emisora])
-						render json: { status: 'SUCCESS', message: 'Lista de canciones', canciones: lista_canciones},status: :ok#, authentication_token:user.authentication_token }, status: :ok
+						render json: { status: 'SUCCESS', message: 'Lista de canciones', canciones: lista_canciones, authentication_token:user.authentication_token }, status: :ok
 						
 					else
 						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
@@ -36,11 +36,11 @@ module Api
 						if(voto.save)
 									nueva = VotacionesTemporal.new(id_emisora: params[:id_emisora], id_cancion: voto.id, cancion: params[:cancion], votos:0)
 									if(nueva.save)
-										#user.authentication_token = nil
-										#user.save
+										user.authentication_token = nil
+										user.save
 
 										lista_canciones = VotacionesTemporal.where(id_emisora: params[:id_emisora])
-										render json: { status: 'SUCCESS', message: 'Cancion agregada', canciones: lista_canciones }, status: :ok#, authentication_token:user.authentication_token }, status: :ok
+										render json: { status: 'SUCCESS', message: 'Cancion agregada', canciones: lista_canciones, authentication_token:user.authentication_token }, status: :ok
 									else
 										render json: { status: 'ERROR', message: 'Canción no agregada'}, status: :bad
 									end
