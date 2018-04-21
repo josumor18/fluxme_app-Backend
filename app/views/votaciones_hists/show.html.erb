@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id emisora:</strong>
+  <%= @votaciones_hist.id_emisora %>
+</p>
+
+<p>
+  <strong>Cancion:</strong>
+  <%= @votaciones_hist.cancion %>
+</p>
+
+<p>
+  <strong>Votos:</strong>
+  <%= @votaciones_hist.votos %>
+</p>
+
+<%= link_to 'Edit', edit_votaciones_hist_path(@votaciones_hist) %> |
+<%= link_to 'Back', votaciones_hists_path %>

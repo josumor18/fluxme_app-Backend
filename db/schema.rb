@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418080627) do
+ActiveRecord::Schema.define(version: 20180421001846) do
 
   create_table "canciones_votars", force: :cascade do |t|
     t.integer  "id_emisora"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20180418080627) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "comentarios", force: :cascade do |t|
+    t.string   "comentarista"
+    t.text     "cuerpo"
+    t.integer  "emisora_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "comentarios", ["emisora_id"], name: "index_comentarios_on_emisora_id"
 
   create_table "emisoras", force: :cascade do |t|
     t.string   "nombre"
@@ -101,6 +111,30 @@ ActiveRecord::Schema.define(version: 20180418080627) do
     t.integer  "id_emisora"
     t.string   "cancion"
     t.integer  "votos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "votaciones_hists", force: :cascade do |t|
+    t.integer  "id_emisora"
+    t.string   "cancion"
+    t.integer  "votos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "votaciones_temporals", force: :cascade do |t|
+    t.integer  "id_emisora"
+    t.integer  "id_cancion"
+    t.string   "cancion"
+    t.integer  "votos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "voto_temps", force: :cascade do |t|
+    t.integer  "id_voto"
+    t.integer  "id_user"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

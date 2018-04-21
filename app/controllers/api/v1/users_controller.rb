@@ -32,10 +32,11 @@ module Api
 				pass = params[:password]
 
 				if (user&.authentication_token==token)
-					user.authentication_token = nil
-					user.save
+					u
 					if (user&.valid_password?(pass))
 						#update
+						ser.authentication_token = nil
+						user.save
 						user.update(:name=>params[:name])
 						user.update(:email=>params[:email])
 						user.update(:password=>params[:new_password])

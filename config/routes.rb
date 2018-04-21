@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  resources :votaciones_hists
+  resources :comentarios
   resources :programacions
-  resources :votaciones_historicos
   resources :trendings
   resources :localizacion_stats
   resources :user_emisoras
@@ -35,8 +36,15 @@ Rails.application.routes.draw do
       get 'votaciones/get_canciones', to: 'votaciones#get_canciones'
       get 'votaciones/get_mis_votos', to: 'votaciones#get_mis_votos'
       delete 'votaciones/del_voto', to: 'votaciones#del_voto'
+      post 'votaciones/add_cancion', to: 'votaciones#add_cancion'
+      post 'comentarios/add_comentarios', to: 'comentarios#add_comentarios'
+      get 'comentarios/get_comentarios', to: 'comentarios#get_comentarios'
       delete 'votaciones/del_cancion', to: 'votaciones#del_cancion'
       post 'programacions/setProgramacion', to: 'programacions#setProgramacion'
+      get 'programacions/getProgramacion', to: 'programacions#getProgramacion'
+      get 'estadisticas/get_ubicaciones', to: 'estadisticas#get_ubicaciones'
+      get 'estadisticas/get_votaciones', to: 'estadisticas#get_votaciones'
+      delete 'programacions/deleteProgramacion', to: 'programacions#deleteProgramacion'    
     end
   end
   

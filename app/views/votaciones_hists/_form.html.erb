@@ -1,0 +1,29 @@
+<%= form_for(@votaciones_hist) do |f| %>
+  <% if @votaciones_hist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@votaciones_hist.errors.count, "error") %> prohibited this votaciones_hist from being saved:</h2>
+
+      <ul>
+      <% @votaciones_hist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :id_emisora %><br>
+    <%= f.number_field :id_emisora %>
+  </div>
+  <div class="field">
+    <%= f.label :cancion %><br>
+    <%= f.text_field :cancion %>
+  </div>
+  <div class="field">
+    <%= f.label :votos %><br>
+    <%= f.number_field :votos %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

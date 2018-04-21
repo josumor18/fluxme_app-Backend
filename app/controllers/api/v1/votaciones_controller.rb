@@ -5,56 +5,52 @@ module Api
 
 			#Obtiene las canciones actuales de la emisora
 			def get_canciones
-				user = User.where(id: params[:id_user]).first
-				token = params[:authentication_token]
-				if (user)
-					if (user.authentication_token==token)
-						user.authentication_token = nil
-						user.save
+				#user = User.where(id: params[:id_user]).first
+				#token = params[:authentication_token]
+				#if (user)
+					#if (user.authentication_token==token)
+						#user.authentication_token = nil
+						#user.save
 						
-						lista_canciones = CancionesVotar.where(id_emisora: params[:id_emisora])
-						render json: { status: 'SUCCESS', message: 'Lista de canciones', canciones: lista_canciones, authentication_token:user.authentication_token }, status: :ok
+						lista_canciones = VotacionesTemporal.where(id_emisora: params[:id_emisora])
+						render json: { status: 'SUCCESS', message: 'Lista de canciones', canciones: lista_canciones},status: :ok#, authentication_token:user.authentication_token }, status: :ok
 						
-					else
-						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
-					end
-				else
-					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
-				end
+					#else
+						#render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					#end
+				#else
+					#render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				#end
 			end
 
 			#Agrega una nueva canción
 			def add_cancion
-				user = User.where(id: params[:id_user]).first
-				token = params[:authentication_token]
-				if(user)
-					if (user.authentication_token==token)
-						cancion = CancionesVotar.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
-						if (!cancion)
-							cancion = CancionesVotar.new(id_emisora: params[:id_emisora], cancion: params[:cancion])
-							if (cancion.save)
-								voto = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
-								if(!voto)
-									voto = VotacionesHistorico.new(id_emisora: params[:id_emisora], cancion: params[:cancion], votos: 0)
-								end
-								if(voto.save)
-									user.authentication_token = nil
-									user.save
-
-									lista_canciones = CancionesVotar.where(id_emisora: params[:id_emisora])
-									render json: { status: 'SUCCESS', message: 'Cancion agregada', canciones: lista_canciones, authentication_token:user.authentication_token }, status: :ok
-								end
-							end
-						else
-							render json: { status: 'ERROR', message: 'Canción no agregada'}, status: :bad
+				#user = User.where(id: params[:id_user]).first
+				#token = params[:authentication_token]
+				#if(user)
+					#if (user.authentication_token==token)
+						voto = VotacionesHist.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
+						if(!voto)
+							voto = VotacionesHist.new(id_emisora: params[:id_emisora], cancion: params[:cancion], votos: 0)
 						end
-						
-					else
-						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
-					end
-				else
-					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
-				end
+						if(voto.save)
+									nueva = VotacionesTemporal.new(id_emisora: params[:id_emisora], id_cancion: voto.id, cancion: params[:cancion], votos:0)
+									if(nueva.save)
+										#user.authentication_token = nil
+										#user.save
+
+										lista_canciones = VotacionesTemporal.where(id_emisora: params[:id_emisora])
+										render json: { status: 'SUCCESS', message: 'Cancion agregada', canciones: lista_canciones }, status: :ok#, authentication_token:user.authentication_token }, status: :ok
+									else
+										render json: { status: 'ERROR', message: 'Canción no agregada'}, status: :bad
+									end
+						end
+					#else
+						#render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					#end
+				#else
+					#render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				#end
 			end
 
 			#Eliminar voto de un usuario
@@ -63,9 +59,12 @@ module Api
 				token = params[:authentication_token]
 				if(user)
 					if (user.authentication_token==token)
-						CancionesVotar.where(id: params[:id_cancion]).destroy_all
+						canc = VotacionesTemporal.where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_cancion]).first
+						VotoTemp.where(id_voto: canc.id).where(id_user: params[:id_user]).destroy_all
 
-						Voto.where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_cancion]).destroy_all
+						VotacionesTemporal.where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_cancion]).destroy_all
+
+						
 
 						render json: { status: 'DELETED', message: 'Canción eliminada'}, status: :ok
 					else
@@ -84,11 +83,12 @@ module Api
 				token = params[:authentication_token]
 				if(user)
 					if (user.authentication_token==token)
-						Voto.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_cancion]).destroy_all
-						voto = Voto.new(id_user: params[:id_user], id_emisora: params[:id_emisora], id_cancion: params[:id_cancion])
+						canc = VotacionesTemporal.where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_cancion]).first
+						voto = VotoTemp.new(id_user: params[:id_user], id_voto: canc.id)
 						if (voto.save)
-							votoH = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:nom_cancion])
+							votoH = VotacionesHist.find_by(id: params[:id_cancion])
 							votoH.update(:votos=> votoH.votos + 1)
+							canc.update(:votos=>canc.votos + 1)
 							
 							user.authentication_token = nil
 							user.save
@@ -116,7 +116,7 @@ module Api
 						user.authentication_token = nil
 						user.save
 						
-						lista_votos = Voto.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora])
+						lista_votos = VotoTemp.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora])
 						render json: { status: 'SUCCESS', message: 'Lista de votos', ubicaciones: lista_votos, authentication_token:user.authentication_token }, status: :ok
 						
 					else
@@ -128,24 +128,7 @@ module Api
 			end
 
 			#Eliminar voto de un usuario
-			def del_voto
-				user = User.where(id: params[:id_user]).first
-				token = params[:authentication_token]
-				if(user)
-					if (user.authentication_token==token)
-						Voto.where(id_user: params[:id_user]).where(id_emisora: params[:id_emisora]).where(id_cancion: params[:id_ancion]).destroy_all
-						cancion = CancionesVotar.where
-						votH = VotacionesHistorico.find_by(id_emisora: params[:id_emisora], cancion: params[:cancion])
-						votoH.update(:votos=> votoH.votos - 1)
 
-						render json: { status: 'DELETED', message: 'Voto eliminado'}, status: :ok
-					else
-						render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
-					end
-				else
-					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
-				end
-			end
 		end
 	end
 end

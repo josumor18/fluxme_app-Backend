@@ -10,12 +10,13 @@ module Api
 				if (user && emisora)
 
 					if (user.authentication_token==token)
+						user.authentication_token = nil
+						user.save
 						Programacion.where(dia: params[:dia]).where(hora: params[:hora]).where(idEmisora: params[:idEmisora]).destroy_all
 						programacion = Programacion.new(programacion_params) 
 						
 						if programacion.save
-							user.authentication_token = nil
-							user.save
+							
 							render json: { status: 'SUCCESS', message: 'PROGRAMACION AGREGADA', authentication_token:user.authentication_token }, status: :created
 						
 						else	
@@ -34,7 +35,51 @@ module Api
 
 			end
 
+			def getProgramacion
+				user = User.where(id: params[:idUser]).first
+				programacion = Programacion.where(idEmisora: params[:idEmisora])
+				token = params[:authentication_token]
+				if (user && programacion)
+					#if (user.authentication_token==token)
+						
+						
+						
+					user.authentication_token = nil
+					user.save
+					render json: { status: 'SUCCESS', message: 'Lista de programaciones', programacion: programacion, authentication_token:user.authentication_token }, status: :ok
+					
+					#else
+					#	render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					#end
+				else
+					render json: { status: 'INVALID USER', message: 'Usuario Inexistente'}, status: :unauthorized
+				end
+			end
 			
+			def deleteProgramacion
+				user = User.where(id: params[:idUser]).first
+				program_borrar = Programacion.where(idEmisora: params[:idEmisora]).where(dia: params[:dia]).where(hora: params[:hora])
+				token = params[:authentication_token]
+
+				if (user&.authentication_token==token)
+					
+				
+					if(program_borrar)
+
+						Programacion.where(idEmisora: params[:idEmisora]).where(dia: params[:dia]).where(hora: params[:hora]).destroy_all
+						render json: { status: 'SUCCESS', message: 'PROGRAMACION ELIMINADA'}, status: :ok
+
+					else
+						render json: { status: 'ERROR', message: 'USUARIO NO SUSCRITO' }, status: :bad
+					end
+				else
+					render json: { status: 'INVALID TOKEN', message: 'Token inválido'}, status: :unauthorized
+					
+				end
+			
+						
+			end
+
 
 			private
 			def programacion_params
